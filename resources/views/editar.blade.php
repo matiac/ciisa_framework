@@ -7,13 +7,14 @@
 <div id="registrar" class="d-flex justify-content-center overflow-auto">
     <div class="card col-8 mt-5 bg-light">
         <div class="card-body">
-            <form>
+            <form onsubmit="return validaProducto()" method="POST" action="">
                 <div class="form-group">
                     <label for="codigo">Código</label>
                     <input
                         type="text"
                         class="form-control"
                         id="codigo"
+                        name="codigo"
                         disabled
                         value="#123"
                     />
@@ -24,12 +25,18 @@
                         type="text"
                         class="form-control"
                         id="nombre"
+                        name="nombre"
                         value="Bicicleta Trek"
                     />
                 </div>
                 <div class="form-group">
                     <label for="categoria">Categoría</label>
-                    <select class="form-control" id="categoria" disabled>
+                    <select
+                        class="form-control"
+                        id="categoria"
+                        name="categoria"
+                        disabled
+                    >
                         <option selected>Montaña</option>
                         <option>Ruta</option>
                         <option>Niño</option>
@@ -40,7 +47,12 @@
                 </div>
                 <div class="form-group">
                     <label for="sucursal">Sucursal</label>
-                    <select class="form-control" id="sucursal" disabled>
+                    <select
+                        class="form-control"
+                        id="sucursal"
+                        name="sucursal"
+                        disabled
+                    >
                         <option selected>Santiago</option>
                         <option>Valdivia</option>
                         <option>Punta Arenas</option>
@@ -48,7 +60,12 @@
                 </div>
                 <div class="form-group">
                     <label for="descripcion">Descripción</label>
-                    <textarea class="form-control" id="descripcion" rows="2">
+                    <textarea
+                        class="form-control"
+                        id="descripcion"
+                        name="descripcion"
+                        rows="2"
+                    >
 Bicicleta de montaña de alta gama.</textarea
                     >
                 </div>
@@ -58,6 +75,7 @@ Bicicleta de montaña de alta gama.</textarea
                         type="number"
                         class="form-control"
                         id="cantidad"
+                        name="cantidad"
                         disabled
                         value="2"
                     />
@@ -68,6 +86,7 @@ Bicicleta de montaña de alta gama.</textarea
                         type="number"
                         class="form-control"
                         id="precio"
+                        name="precio"
                         value="1600000"
                     />
                 </div>

@@ -5,12 +5,18 @@
 @endsection @section('vista')
 
 <div id="filtro" class="d-flex justify-content-center p-2 m-4">
-    <form class="form-inline">
+    <form
+        onsubmit="return validaConsulta()"
+        method="POST"
+        action=""
+        class="form-inline"
+    >
         <label class="sr-only" for="codigo">Código</label>
         <input
             type="text"
             class="form-control mb-2 mr-sm-2"
             id="codigo"
+            name="codigo"
             placeholder="Código"
         />
 
@@ -19,12 +25,17 @@
             type="text"
             class="form-control mb-2 mr-sm-2"
             id="nombre"
+            name="nombre"
             placeholder="Nombre"
         />
 
         <div class="form-group">
             <label class="sr-only" for="sucursal">Sucursal</label>
-            <select class="form-control mb-2 mr-sm-2" id="sucursal">
+            <select
+                class="form-control mb-2 mr-sm-2"
+                id="sucursal"
+                name="sucursal"
+            >
                 <option selected disabled>Sucursal</option>
                 <option>Santiago</option>
                 <option>Valdivia</option>
@@ -32,7 +43,7 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-success mb-2">Submit</button>
+        <button type="submit" class="btn btn-success mb-2">Buscar</button>
     </form>
 </div>
 

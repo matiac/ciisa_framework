@@ -9,23 +9,29 @@
                     <h4 class="card-title">Inicio Sesión</h4>
                 </div>
                 <div class="card-body">
-                    <form action="" id="login">
+                    <form
+                        onsubmit="return validaLogin()"
+                        method="POST"
+                        action=""
+                        id="login"
+                        novalidate
+                    >
                         <div class="form-group">
                             <label for="usuario">Usuario</label>
                             <input
                                 type="text"
                                 class="form-control"
                                 name="usuario"
-                                id=""
+                                id="usuario"
                             />
                         </div>
                         <div class="form-group">
-                            <label for="contraseña">Contraseña</label>
+                            <label for="clave">Contraseña</label>
                             <input
                                 type="password"
                                 class="form-control"
-                                name="contraseña"
-                                id=""
+                                name="clave"
+                                id="clave"
                             />
                         </div>
                     </form>
@@ -43,5 +49,3 @@
         </div>
     </div>
 </div>
-
-@endsection
