@@ -11,11 +11,13 @@
                 <div class="card-body">
                     <form
                         onsubmit="return validaLogin()"
-                        method="POST"
-                        action=""
+                        method="GET"
+                        action="/products"
                         id="login"
                         novalidate
                     >
+                        @csrf
+
                         <div class="form-group">
                             <label for="usuario">Usuario</label>
                             <input

@@ -1,3 +1,11 @@
+@php
+    use App\Models\Category;
+    use App\Models\Store;
+
+    $categories = Category::all();
+    $stores = Store::all();
+@endphp
+
 @extends('plantillas.dashboard') @section('titulo')
 
 <h2 class="navbar-brand">Editar producto</h2>
@@ -7,87 +15,79 @@
 <div id="registrar" class="d-flex justify-content-center overflow-auto">
     <div class="card col-8 mt-5 bg-light">
         <div class="card-body">
-            <form onsubmit="return validaProducto()" method="POST" action="">
+            <form onsubmit="return validaProducto()" method="POST" action="{{ "/products/$product->id" }}">
+                @method('PUT')
+                @csrf
+
+                <input type="hidden" name="id" value="{{ $product->id }}">
+
                 <div class="form-group">
                     <label for="codigo">Código</label>
                     <input
                         type="text"
                         class="form-control"
                         id="codigo"
-                        name="codigo"
+                        name="code"
                         disabled
-                        value="#123"
+                        value="{{ $product->code }}"
                     />
                 </div>
+
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
                     <input
                         type="text"
                         class="form-control"
                         id="nombre"
-                        name="nombre"
-                        value="Bicicleta Trek"
+                        name="name"
+                        value="{{ $product->name }}"
                     />
                 </div>
+
                 <div class="form-group">
                     <label for="categoria">Categoría</label>
-                    <select
-                        class="form-control"
-                        id="categoria"
-                        name="categoria"
-                        disabled
-                    >
-                        <option selected>Montaña</option>
-                        <option>Ruta</option>
-                        <option>Niño</option>
-                        <option>Urbanas</option>
-                        <option>Freestyle</option>
-                        <option>Eléctricas</option>
+                    <select class="form-control" id="categoria" name="category_id" disabled>
+                        <option value="{{ $product->category->id }}" selected>
+                            {{ $product->category->name }}
+                        </option>
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label for="sucursal">Sucursal</label>
-                    <select
-                        class="form-control"
-                        id="sucursal"
-                        name="sucursal"
-                        disabled
-                    >
-                        <option selected>Santiago</option>
-                        <option>Valdivia</option>
-                        <option>Punta Arenas</option>
+                    <select class="form-control" id="sucursal" name="store_id" disabled>
+                        <option value="{{ $product->store->id }}" selected>
+                            {{ $product->store->name }}
+                        </option>
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label for="descripcion">Descripción</label>
-                    <textarea
-                        class="form-control"
-                        id="descripcion"
-                        name="descripcion"
-                        rows="2"
-                    >
-Bicicleta de montaña de alta gama.</textarea
+                    <textarea class="form-control" id="descripcion" name="description" rows="2">{{ $product->description }}</textarea
                     >
                 </div>
+
                 <div class="form-group">
                     <label for="cantidad">Cantidad</label>
                     <input
                         type="number"
                         class="form-control"
                         id="cantidad"
-                        name="cantidad"
+                        name="stock"
                         disabled
-                        value="2"
+                        value="{{ $product->stock }}"
                     />
                 </div>
+
                 <div class="form-group">
                     <label for="precio">Precio venta</label>
                     <input
                         type="number"
                         class="form-control"
                         id="precio"
-                        name="precio"
-                        value="1600000"
+                        name="price"
+                        value="{{ $product->price }}"
                     />
                 </div>
 

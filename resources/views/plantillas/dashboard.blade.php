@@ -14,8 +14,8 @@
             class="flex-grow-1 d-flex flex-column justify-content-center"
         >
             <div id="opciones">
-                <a href="/consultar">Consultar</a>
-                <a href="/registrar">Registrar</a>
+                <a href="/products">Consultar</a>
+                <a href="/products/create">Registrar</a>
             </div>
         </div>
     </div>

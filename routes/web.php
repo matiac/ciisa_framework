@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'welcome');
-Route::view('/consultar', 'consultar');
-Route::view('/registrar', 'registrar');
-Route::view('/editar', 'editar');
+
+Route::resource('products', ProductController::class);

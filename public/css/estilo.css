@@ -44,3 +44,16 @@ body {
 .controles a {
     text-decoration: none;
 }
+
+#cambio-campo {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.8em;
+}
+
+.boton-link {
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    cursor: pointer;
+}

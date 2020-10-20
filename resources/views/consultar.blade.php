@@ -5,158 +5,103 @@
 @endsection @section('vista')
 
 <div id="filtro" class="d-flex justify-content-center p-2 m-4">
-    <form
-        onsubmit="return validaConsulta()"
-        method="POST"
-        action=""
-        class="form-inline"
-    >
-        <label class="sr-only" for="codigo">Código</label>
-        <input
-            type="text"
-            class="form-control mb-2 mr-sm-2"
-            id="codigo"
-            name="codigo"
-            placeholder="Código"
-        />
+    <form onsubmit="return validaConsulta()" method="GET" action="/products" class="form-inline align-items-start">
+        @csrf
 
-        <label class="sr-only" for="nombre">Nombre</label>
-        <input
-            type="text"
-            class="form-control mb-2 mr-sm-2"
-            id="nombre"
-            name="nombre"
-            placeholder="Nombre"
-        />
+        <div>
+            <label class="sr-only" for="codigo">Valor</label>
+            <input
+                type="text"
+                class="form-control mr-sm-2"
+                id="valor"
+                name="valor"
+                placeholder="Nombre"
+            />
+            <a href="#" id="cambio-campo" onclick="cambiarCampo()">Buscar por código</a>
+        </div>
+
+        <input type="hidden" id="campo" name="campo" value="name">
 
         <div class="form-group">
             <label class="sr-only" for="sucursal">Sucursal</label>
-            <select
-                class="form-control mb-2 mr-sm-2"
-                id="sucursal"
-                name="sucursal"
-            >
-                <option selected disabled>Sucursal</option>
-                <option>Santiago</option>
-                <option>Valdivia</option>
-                <option>Punta Arenas</option>
+            <select class="form-control mr-sm-2" id="sucursal" name="sucursal">
+                @foreach ($stores as $store)
+                    <option value="{{ $store->id }}">
+                        {{ $store->name }}
+                    </option>
+                @endforeach
             </select>
         </div>
 
-        <button type="submit" class="btn btn-success mb-2">Buscar</button>
+        <button type="submit" class="btn btn-success">Buscar</button>
     </form>
 </div>
 
 <div id="resultados" class="d-flex justify-content-center">
     <div class="accordion col-8" id="acordeon">
-        <div class="card">
-            <div
-                class="card-header d-flex justify-content-between align-items-center"
-                id="heading1"
-            >
-                <div class="d-flex align-items-center">
-                    <span>#123</span>
+        @foreach ($products as $i => $product)
+            <div class="card">
+                <div
+                    class="card-header d-flex justify-content-between align-items-center"
+                    id={{ "heading$i" }}
+                >
+                    <div class="d-flex align-items-center">
+                        <span>{{ $product->code }}</span>
 
-                    <button
-                        class="btn btn-link"
-                        type="button"
-                        data-toggle="collapse"
-                        data-target="#collapse1"
-                        aria-expanded="false"
-                        aria-controls="collapse1"
-                    >
-                        Bicicleta Trek
-                    </button>
+                        <button
+                            class="btn btn-link"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target={{ "#collapse$i" }}
+                            aria-expanded="false"
+                            aria-controls={{ "collapse$i" }}
+                        >
+                            {{ $product->name }}
+                        </button>
 
-                    <span>Santiago</span>
+                        <span>{{ $product->store->name }}</span>
+                    </div>
+
+                    <div class="controles">
+                        <a href={{ "/products/$product->id/edit" }}>
+                            <img src="/img/edit.svg" alt="editar" class="mr-2" />
+                        </a>
+                        <form action={{ "/products/$product->id" }} method="POST" class="d-inline">
+                            @method('DELETE')
+                            @csrf
+                            
+                            <button type="submit" class="boton-link">
+                                <img src="/img/delete.svg" alt="eliminar" />
+                            </button>
+                        </form>
+                    </div>
                 </div>
 
-                <div class="controles">
-                    <a href="/editar">
-                        <img src="/img/edit.svg" alt="editar" class="mr-2" />
-                    </a>
-                    <a href="#1">
-                        <img src="/img/delete.svg" alt="eliminar" />
-                    </a>
-                </div>
-            </div>
-
-            <div
-                id="collapse1"
-                class="collapse"
-                aria-labelledby="heading1"
-                data-parent="#acordeon"
-            >
-                <div class="card-body py-2">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Id: 1</li>
-                        <li class="list-group-item">Categoría: bicicletas</li>
-                        <li class="list-group-item">
-                            Descripción: bicicleta de montaña de alta gama.
-                        </li>
-                        <li class="list-group-item">Cantidad: 2</li>
-                        <li class="list-group-item">
-                            Precio venta: $1.600.000
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div
-                class="card-header d-flex justify-content-between align-items-center"
-                id="heading2"
-            >
-                <div class="d-flex align-items-center">
-                    <span>#124</span>
-
-                    <button
-                        class="btn btn-link"
-                        type="button"
-                        data-toggle="collapse"
-                        data-target="#collapse2"
-                        aria-expanded="false"
-                        aria-controls="collapse2"
-                    >
-                        Bicicleta Giant
-                    </button>
-
-                    <span>Valdivia</span>
-                </div>
-
-                <div class="controles">
-                    <a href="/editar">
-                        <img src="/img/edit.svg" alt="editar" class="mr-2" />
-                    </a>
-                    <a href="#1">
-                        <img src="/img/delete.svg" alt="eliminar" />
-                    </a>
+                <div
+                    id={{ "collapse$i" }}
+                    class="collapse"
+                    aria-labelledby={{ "heading$i" }}
+                    data-parent="#acordeon"
+                >
+                    <div class="card-body py-2">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Id: {{ $product->id }}</li>
+                            <li class="list-group-item">Categoría: {{ $product->category->name }}</li>
+                            <li class="list-group-item">
+                                Descripción: {{ $product->description }}
+                            </li>
+                            <li class="list-group-item">Cantidad: {{ $product->stock }}</li>
+                            <li class="list-group-item">
+                                Precio venta: ${{ $product->price }}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-
-            <div
-                id="collapse2"
-                class="collapse"
-                aria-labelledby="heading2"
-                data-parent="#acordeon"
-            >
-                <div class="card-body py-2">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Id: 2</li>
-                        <li class="list-group-item">Categoría: bicicletas</li>
-                        <li class="list-group-item">
-                            Descripción: bicicleta pistera de alta gama.
-                        </li>
-                        <li class="list-group-item">Cantidad: 1</li>
-                        <li class="list-group-item">
-                            Precio venta: $1.200.000
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
 </div>
+
+<script src="/js/inputDoble.js"></script>
 
 @endsection

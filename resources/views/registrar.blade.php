@@ -7,14 +7,16 @@
 <div id="registrar" class="d-flex justify-content-center overflow-auto">
     <div class="card col-8 mt-5 bg-light">
         <div class="card-body">
-            <form onsubmit="return validaProducto()" method="POST" action="">
+            <form onsubmit="return validaProducto()" method="POST" action="/products">
+                @csrf
+                
                 <div class="form-group">
                     <label for="codigo">Código</label>
                     <input
                         type="text"
                         class="form-control"
                         id="codigo"
-                        name="codigo"
+                        name="code"
                     />
                 </div>
                 <div class="form-group">
@@ -23,7 +25,7 @@
                         type="text"
                         class="form-control"
                         id="nombre"
-                        name="nombre"
+                        name="name"
                     />
                 </div>
                 <div class="form-group">
@@ -31,22 +33,23 @@
                     <select
                         class="form-control"
                         id="categoria"
-                        name="categoria"
+                        name="category_id"
                     >
-                        <option>Montaña</option>
-                        <option>Ruta</option>
-                        <option>Niño</option>
-                        <option>Urbanas</option>
-                        <option>Freestyle</option>
-                        <option>Eléctricas</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="sucursal">Sucursal</label>
-                    <select class="form-control" id="sucursal" name="sucursal">
-                        <option>Santiago</option>
-                        <option>Valdivia</option>
-                        <option>Punta Arenas</option>
+                    <select class="form-control" id="sucursal" name="store_id">
+                        @foreach ($stores as $store)
+                            <option value="{{ $store->id }}">
+                                {{ $store->name }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group">
@@ -54,7 +57,7 @@
                     <textarea
                         class="form-control"
                         id="descripcion"
-                        name="descripcion"
+                        name="description"
                         rows="2"
                     ></textarea>
                 </div>
@@ -64,7 +67,7 @@
                         type="number"
                         class="form-control"
                         id="cantidad"
-                        name="cantidad"
+                        name="stock"
                     />
                 </div>
                 <div class="form-group">
@@ -73,7 +76,7 @@
                         type="number"
                         class="form-control"
                         id="precio"
-                        name="precio"
+                        name="price"
                     />
                 </div>
 
