@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,8 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-Route::view('/', 'welcome');
+Route::view('/', 'welcome')->name('login');
+Route::post('login', [LoginController::class, 'authenticate']);
+Route::get('logout', [LoginController::class, 'logout']);
 
-Route::resource('products', ProductController::class);
+Route::resource('products', ProductController::class)->middleware('auth');

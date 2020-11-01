@@ -33,13 +33,13 @@
                     aria-haspopup="true"
                     aria-expanded="false"
                 >
-                    Usuario
+                    {{ session()->get('user') }}
                 </button>
                 <div
                     class="dropdown-menu dropdown-menu-right"
                     aria-labelledby="dropdownMenuButton"
                 >
-                    <a class="dropdown-item" href="#">Cerrar sesión</a>
+                    <a class="dropdown-item" href="/logout">Cerrar sesión</a>
                 </div>
             </div>
         </nav>
